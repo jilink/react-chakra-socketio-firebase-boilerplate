@@ -28,7 +28,6 @@ function Login() {
         <FormControl isRequired>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
-            type="text"
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="E-mail Address"

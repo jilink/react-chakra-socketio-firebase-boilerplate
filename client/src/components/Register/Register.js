@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../../firebase";
+import { Flex, Box, Input, FormControl, FormLabel, Button } from '@chakra-ui/react';
+import Link from '../Link/Link';
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -22,43 +24,53 @@ function Register() {
     if (user) navigate("/");
   }, [user, loading]);
   return (
-    <div className="register">
-      <div className="register__container">
-        <input
-          type="text"
-          className="register__textBox"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full Name"
-        />
-        <input
-          type="text"
-          className="register__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className="register__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button className="register__btn" onClick={register}>
-          Register
-        </button>
-        <button
-          className="register__btn register__google"
-          onClick={signInWithGoogle}
-        >
-          Register with Google
-        </button>
-        <div>
-          Already have an account? <Link to="/">Login</Link> now.
-        </div>
-      </div>
-    </div>
+    <Flex direction="column" m="2">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          register();
+        }}
+      >
+        <FormControl isRequired>
+          <FormLabel htmlFor="email">Full name</FormLabel>
+          <Input
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Full Name"
+            autoComplete="username"
+          />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="E-mail Address"
+            type="email"
+            autoComplete="email"
+          />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel htmlFor="email">Password</FormLabel>
+          <Input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+            autoComplete="current-password"
+            minLength="6"
+          />
+        </FormControl>
+        <Button w="100%" my="2" type="submit">Register</Button>
+      </form>
+      <Button bg="#4285f4" color="white" onClick={signInWithGoogle}>
+        Register with Google
+      </Button>
+      <Box>
+        Already have an account? <Link to="/login">Login</Link> now.
+      </Box>
+    </Flex>
   );
 }
 export default Register;
