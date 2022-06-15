@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {Button, Box, Input} from '@chakra-ui/react';
+import {Button, Flex, Input, Box, FormControl, FormLabel} from '@chakra-ui/react';
+import Link from '../Link/Link';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,39 +18,44 @@ function Login() {
     if (user) navigate("/");
   }, [user, loading]);
   return (
-    <Box className="login">
-      <Box className="login__container">
-        <Input
-          type="text"
-          className="login__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <Input
-          type="password"
-          className="login__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <Button
-          className="login__btn"
-          onClick={() => logInWithEmailAndPassword(email, password)}
-        >
-          Login
-        </Button>
-        <Button className="login__btn login__google" onClick={signInWithGoogle}>
-          Login with Google
-        </Button>
-        <Box>
-          <Link to="/reset">Forgot Password</Link>
-        </Box>
-        <Box>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </Box>
+    <Flex direction="column" m="2">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          logInWithEmailAndPassword(email, password);
+        }}
+      >
+        <FormControl isRequired>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            type="text"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="E-mail Address"
+            type="email"
+            autoComplete="email"
+          />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <Input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+            autoComplete="current-password"
+          />
+        </FormControl>
+        <Button w="100%" my="2" type="submit">Login</Button>
+      </form>
+      <Button bg="#4285f4" color="white" onClick={signInWithGoogle}>
+        Login with Google
+      </Button>
+        <Link to="/reset-password">Forgot Password</Link>
+      <Box>
+        Don't have an account? <Link to="/signup">Register</Link> now.
       </Box>
-    </Box>
+    </Flex>
   );
 }
 
