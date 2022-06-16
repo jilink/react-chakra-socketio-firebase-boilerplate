@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  ChakraProvider,
-  Flex,
-  theme,
-} from '@chakra-ui/react';
+import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
@@ -16,7 +12,11 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
-        <Flex borderBottom="1px solid black" justify="space-between" fontSize="xl">
+        <Flex
+          borderBottom="1px solid black"
+          justify="space-between"
+          fontSize="xl"
+        >
           <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">SignUp</Link>

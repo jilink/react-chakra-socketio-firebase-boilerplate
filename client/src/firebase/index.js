@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+// import { getAnalytics } from 'firebase/analytics';
 // Remove GoogleAuthProvider if not using Google Auth
 import {
   GoogleAuthProvider,

@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 import Register from '../components/Register/Register';
 
 function SignUpPage() {
-  return (
-    <Register/>
-  )
+  return <Register />;
 }
 
 export default SignUpPage;

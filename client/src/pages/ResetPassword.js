@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { auth, sendPasswordReset } from "../firebase";
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth, sendPasswordReset } from '../firebase';
 import Link from '../components/Link/Link';
-import { Flex, FormControl, FormLabel, Input, Box, Button } from '@chakra-ui/react';
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Box,
+  Button,
+} from '@chakra-ui/react';
 
 function ResetPassword() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/");
+    if (user) navigate('/');
   }, [user, loading, navigate]);
   return (
     <Flex direction="column" m="2">
@@ -31,7 +38,9 @@ function ResetPassword() {
             autoComplete="email"
           />
         </FormControl>
-        <Button w="100%" my="2" type="submit">Send password reset email</Button>
+        <Button w="100%" my="2" type="submit">
+          Send password reset email
+        </Button>
       </form>
       <Box>
         Don't have an account? <Link to="/signup">Register</Link> now.

@@ -9,7 +9,7 @@ function Home() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
   const navigate = useNavigate();
-  const fetchUserName = useCallback( async () => {
+  const fetchUserName = useCallback(async () => {
     try {
       const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
       const doc = await getDocs(q);
@@ -19,7 +19,7 @@ function Home() {
       console.error(err);
       alert('An error occured while fetching user data');
     }
-  }, [user]); 
+  }, [user]);
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate('/');
@@ -33,7 +33,7 @@ function Home() {
         <Box>{user?.email}</Box>
         <Button
           onClick={() => {
-            logout()
+            logout();
             setName('');
           }}
         >
