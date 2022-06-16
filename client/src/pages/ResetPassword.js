@@ -7,12 +7,12 @@ import { Flex, FormControl, FormLabel, Input, Box, Button } from '@chakra-ui/rea
 
 function ResetPassword() {
   const [email, setEmail] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/dashboard");
-  }, [user, loading]);
+    if (user) navigate("/");
+  }, [user, loading, navigate]);
   return (
     <Flex direction="column" m="2">
       <form

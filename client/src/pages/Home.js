@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, logout } from '../firebase';
@@ -6,10 +6,10 @@ import { query, collection, getDocs, where } from 'firebase/firestore';
 import { Box, Button } from '@chakra-ui/react';
 
 function Home() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
   const navigate = useNavigate();
-  const fetchUserName = async () => {
+  const fetchUserName = useCallback( async () => {
     try {
       const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
       const doc = await getDocs(q);
@@ -19,19 +19,24 @@ function Home() {
       console.error(err);
       alert('An error occured while fetching user data');
     }
-  };
+  }, [user]); 
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate('/');
     fetchUserName();
-  }, [user, loading]);
+  }, [user, loading, fetchUserName, navigate]);
   return (
     <Box>
       <Box>
         Logged in as
         <Box>{name}</Box>
         <Box>{user?.email}</Box>
-        <Button onClick={logout}>
+        <Button
+          onClick={() => {
+            logout()
+            setName('');
+          }}
+        >
           Logout
         </Button>
       </Box>
