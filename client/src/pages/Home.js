@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, logout } from '../firebase';
 import { query, collection, getDocs, where } from 'firebase/firestore';
+import { Box, Button } from '@chakra-ui/react';
 
 function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -25,16 +26,16 @@ function Home() {
     fetchUserName();
   }, [user, loading]);
   return (
-    <div className="dashboard">
-      <div className="dashboard__container">
+    <Box>
+      <Box>
         Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
-        <button className="dashboard__btn" onClick={logout}>
+        <Box>{name}</Box>
+        <Box>{user?.email}</Box>
+        <Button onClick={logout}>
           Logout
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
   );
 }
 export default Home;
