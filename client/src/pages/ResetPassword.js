@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { auth, sendPasswordReset } from "../firebase";
+import Link from '../components/Link/Link';
+import { Flex, FormControl, FormLabel, Input, Box, Button } from '@chakra-ui/react';
 
 function ResetPassword() {
   const [email, setEmail] = useState("");
@@ -13,26 +14,29 @@ function ResetPassword() {
     if (user) navigate("/dashboard");
   }, [user, loading]);
   return (
-    <div className="reset">
-      <div className="reset__container">
-        <input
-          type="text"
-          className="reset__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <button
-          className="reset__btn"
-          onClick={() => sendPasswordReset(email)}
-        >
-          Send password reset email
-        </button>
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </div>
-      </div>
-    </div>
+    <Flex direction="column" m="2">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          sendPasswordReset(email);
+        }}
+      >
+        <FormControl isRequired>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="E-mail Address"
+            autoComplete="email"
+          />
+        </FormControl>
+        <Button w="100%" my="2" type="submit">Send password reset email</Button>
+      </form>
+      <Box>
+        Don't have an account? <Link to="/signup">Register</Link> now.
+      </Box>
+    </Flex>
   );
 }
 export default ResetPassword;

@@ -32,7 +32,7 @@ function Register() {
         }}
       >
         <FormControl isRequired>
-          <FormLabel htmlFor="email">Full name</FormLabel>
+          <FormLabel>Full name</FormLabel>
           <Input
             type="text"
             value={name}
@@ -42,7 +42,7 @@ function Register() {
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel>Email</FormLabel>
           <Input
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -52,7 +52,7 @@ function Register() {
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="email">Password</FormLabel>
+          <FormLabel>Password</FormLabel>
           <Input
             type="password"
             value={password}
