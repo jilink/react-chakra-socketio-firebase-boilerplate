@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -10,7 +11,13 @@ app.use(index);
 
 const server = http.createServer(app);
 
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: process.env.ORIGIN,
+    credentials: true
+  },
+});
+
 
 let interval;
 

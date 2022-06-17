@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
+import socketIOClient from "socket.io-client";
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
@@ -9,6 +10,14 @@ import ResetPassword from './pages/ResetPassword';
 import Link from './components/Link/Link';
 
 function App() {
+    const [response, setResponse] = useState("");
+
+  useEffect(() => {
+    const socket = socketIOClient(process.env.REACT_APP_SOCKET_ENDPOINT);
+    socket.on("FromAPI", data => {
+      setResponse(data);
+    });
+  }, []);
   return (
     <ChakraProvider theme={theme}>
       <Router>
@@ -23,6 +32,7 @@ function App() {
           <Link to="/reset-password">Reset Password</Link>
           <ColorModeSwitcher justifySelf="flex-end" />
         </Flex>
+          <p>If you see the folowing date updating, it means the socket is working <time dateTime={response}>{response}</time></p>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<LoginPage />} />

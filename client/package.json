@@ -17,6 +17,7 @@
     "react-icons": "^3.11.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "socket.io-client": "^4.5.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
