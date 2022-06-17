@@ -14,10 +14,9 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: process.env.ORIGIN,
-    credentials: true
+    credentials: true,
   },
 });
-
 
 let interval;
 
@@ -33,7 +32,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const getApiAndEmit = socket => {
+const getApiAndEmit = (socket) => {
   const response = new Date();
   // Emitting a new message. Will be consumed by the client
   socket.emit("FromAPI", response);

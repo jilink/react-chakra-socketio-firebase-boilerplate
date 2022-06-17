@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -26,7 +26,10 @@ function App() {
           <Link to="/reset-password">Reset Password</Link>
           <ColorModeSwitcher justifySelf="flex-end" />
         </Flex>
-          <p>If you see the folowing date updating, it means the socket is working <time dateTime={response}>{response}</time></p>
+        <p>
+          If you see the folowing date updating, it means the socket is working{' '}
+          <time dateTime={response}>{response}</time>
+        </p>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<LoginPage />} />
