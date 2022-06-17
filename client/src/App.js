@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React  from 'react';
 import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
-import socketIOClient from "socket.io-client";
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
@@ -8,16 +7,11 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import ResetPassword from './pages/ResetPassword';
 import Link from './components/Link/Link';
+import useSocket from './hooks/useSocket';
 
 function App() {
-    const [response, setResponse] = useState("");
+  const [response] = useSocket();
 
-  useEffect(() => {
-    const socket = socketIOClient(process.env.REACT_APP_SOCKET_ENDPOINT);
-    socket.on("FromAPI", data => {
-      setResponse(data);
-    });
-  }, []);
   return (
     <ChakraProvider theme={theme}>
       <Router>
